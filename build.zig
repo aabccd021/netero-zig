@@ -36,6 +36,13 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    const rem_module = b.dependency("rem", .{
+        .target = target,
+        .optimize = optimize,
+    }).module("rem");
+
+    exe.root_module.addImport("rem", rem_module);
+
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).
